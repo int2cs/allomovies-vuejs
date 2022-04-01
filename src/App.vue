@@ -1,26 +1,63 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <CompHeader></CompHeader>
+  <SearchArea></SearchArea>
+
+  <div class="moviesList">
+    <CardMovie v-for="movie of movies" :key="movie.id" :dataMovie="movie"></CardMovie>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import CompHeader from "./components/compHeader.vue";
+import SearchArea from "./components/SearchArea.vue";
+import CardMovie from "./components/CardMovie.vue";
 
 export default {
-  name: 'App',
   components: {
-    HelloWorld
-  }
-}
+    CompHeader,
+    SearchArea,
+    CardMovie,
+  },
+  mounted() {
+    fetch("https://api.themoviedb.org/3/movie/popular?api_key=2a7bc3506d9e237e752a6e713962fea0&language=fr-Eu&page=1")
+      .then((response) => response.json())
+      .then((res) => {
+        this.movies = res.results;
+        console.log(res.results);
+      });
+  },
+  data() {
+    return {
+      movies: [],
+    };
+  },
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  padding: 0.5em 1em;
+  border-radius: 10px;
+}
+a:hover {
+  color: black !important;
+  background: aliceblue;
+}
+a.active {
+  color: white;
+}
+
+.moviesList {
+  width: 80%;
+  margin: 160px auto 0 auto;
 }
 </style>
