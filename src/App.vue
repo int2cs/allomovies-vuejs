@@ -1,35 +1,15 @@
 <template>
-  <CompHeader></CompHeader>
-  <SearchArea></SearchArea>
+  <CompHeader />
 
-  <div class="moviesList">
-    <CardMovie v-for="movie of movies" :key="movie.id" :dataMovie="movie"></CardMovie>
-  </div>
+  <router-view />
 </template>
 
 <script>
 import CompHeader from "./components/compHeader.vue";
-import SearchArea from "./components/SearchArea.vue";
-import CardMovie from "./components/CardMovie.vue";
 
 export default {
   components: {
     CompHeader,
-    SearchArea,
-    CardMovie,
-  },
-  mounted() {
-    fetch("https://api.themoviedb.org/3/movie/popular?api_key=2a7bc3506d9e237e752a6e713962fea0&language=fr-Eu&page=1")
-      .then((response) => response.json())
-      .then((res) => {
-        this.movies = res.results;
-        console.log(res.results);
-      });
-  },
-  data() {
-    return {
-      movies: [],
-    };
   },
 };
 </script>
@@ -52,12 +32,20 @@ a:hover {
   color: black !important;
   background: aliceblue;
 }
-a.active {
+a.router-link-active {
   color: white;
 }
 
 .moviesList {
-  width: 80%;
-  margin: 160px auto 0 auto;
+  max-width: 935px;
+  margin: 160px 0 0 20px;
+  display: flex;
+  justify-content: start;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.notVisible {
+  visibility: hidden;
 }
 </style>

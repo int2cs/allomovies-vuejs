@@ -4,10 +4,8 @@
     <h1>AlloMovies</h1>
 
     <nav>
-      <ul>
-        <li><a href="/" class="active">Accueil</a></li>
-        <li><a href="/favoris">Favoris</a></li>
-      </ul>
+      <router-link to="/">Accueil</router-link>
+      <router-link to="/favoris">Favoris</router-link>
     </nav>
   </header>
 </template>

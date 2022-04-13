@@ -1,13 +1,26 @@
 <template>
   <div class="searchArea">
-    <form>
-      <input type="search" placeholder="Rechercher..." />
+    <form @submit.prevent="makeSearch">
+      <input type="search" placeholder="Rechercher..." v-model="search" />
       <input type="submit" value="Go !" />
     </form>
   </div>
 </template>
 
-<script></script>
+<script>
+export default {
+  data() {
+    return {
+      search: "",
+    };
+  },
+  methods: {
+    makeSearch() {
+      this.$emit("validatingSearch", this.search);
+    },
+  },
+};
+</script>
 
 <style scoped>
 .searchArea {
